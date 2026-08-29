@@ -54,6 +54,9 @@
       width: 100%;
       box-shadow: 0 3px 6px rgba(40, 167, 69, 0.3);
       transition: background-color 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      box-sizing: border-box;
     }
 
     .buy-btn:active {
@@ -64,33 +67,20 @@
 <body>
 
   <div class="card">
-    <!-- الصورة المرفقة -->
     <img src="image.png" alt="مياه فجر" class="product-img">
     <div class="title">مياه فجر (FAJR WATER)</div>
     
-    <!-- زر الشراء الأخضر -->
-    <button id="buyBtn" class="buy-btn">شراء</button>
+    <!-- زر الشراء ينقل للماسنـجر فوراً مع نص "موية" -->
+    <a href="fb-messenger://share/?link=موية" class="buy-btn" id="buyBtn">شراء</a>
   </div>
 
   <script>
-    document.getElementById('buyBtn').addEventListener('click', async () => {
-      // تجهيز النص والرابط المطلوب مشاركتهم
-      const shareData = {
-        title: 'طلب مياه فجر',
-        text: 'طلب موية فجر',
-        url: window.location.href // يُرسل رابط موقعك الحالي على GitHub
-      };
-
-      // فتح قائمة المشاركة (Share Sheet) في أبل
-      if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {
-          console.log('تم إلغاء المشاركة');
-        }
-      } else {
-        alert('المتصفح لا يدعم قائمة المشاركة المباشرة.');
-      }
+    // احتياطي لفتح ماسنجر من الجوال بشكل مباشر
+    document.getElementById('buyBtn').addEventListener('click', function(e) {
+      const text = encodeURIComponent("موية");
+      const messengerUrl = `fb-messenger://share/?link=${text}`;
+      
+      window.location.href = messengerUrl;
     });
   </script>
 
